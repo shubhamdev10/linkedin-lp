@@ -1,3 +1,4 @@
+
 // Premium Portfolio Logic - Shubham Dev
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,15 +10,35 @@ document.addEventListener('DOMContentLoaded', () => {
         cursor.style.top = e.clientY + 'px';
     });
 
-    // 2. Navbar Scroll Effect
+    // 2. Navbar Scroll Effect & Mobile Menu Toggle
     const header = document.querySelector('.glass-nav');
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const navLinksItems = document.querySelectorAll('.nav-links li a');
+
+    // Toggle menu
+    mobileNavToggle.addEventListener('click', () => {
+        mobileNavToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+    });
+
+    // Close menu when clicking a link
+    navLinksItems.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileNavToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    });
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            header.style.background = 'rgba(11, 9, 10, 0.9)';
-            header.style.padding = '15px 0';
+            header.style.background = 'rgba(11, 9, 10, 0.95)';
+            header.style.padding = '10px 0';
         } else {
-            header.style.background = 'rgba(11, 9, 10, 0.7)';
-            header.style.padding = '20px 0';
+            header.style.background = 'rgba(11, 9, 10, 0.85)';
+            header.style.padding = '15px 0';
         }
     });
 
@@ -40,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Apply visibility class and observe sections
     const revealElements = [
-        ...document.querySelectorAll('section'),
+        ...document.querySelectorAll('section:not(.hero)'),
         ...document.querySelectorAll('.timeline-item'),
         ...document.querySelectorAll('.skill-card'),
         ...document.querySelectorAll('.edu-card'),
